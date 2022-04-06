@@ -1,0 +1,28 @@
+apiVersion: crd.flexlb.gitee.io/v1
+kind: FlexLBInstance
+metadata:
+  name: inst100
+spec:
+  cluster: default
+  ippool: default
+  config:
+    name: "inst100"
+    frontend_interface: "enp4s3"
+    frontend_ipaddress: "192.168.2.100"
+    frontend_net_prefix: 24
+    endpoints:
+    - frontend_port: 8080
+      mode: "tcp"
+      balance: "roundrobin"
+      backend_options: []
+      backend_default_server: "inter 2s downinter 5s rise 2 fall 2 slowstart 60s maxconn 2000 maxqueue 2000 weight 100 check"
+      backend_servers:
+        - name: "app1"
+          ipaddress: "192.168.1.141"
+          port: 30080
+        - name: "app2"
+          ipaddress: "192.168.1.142"
+          port: 30080
+        - name: "app3"
+          ipaddress: "192.168.1.142"
+          port: 30080

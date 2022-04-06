@@ -1,0 +1,20 @@
+# permissions for end users to view flexlbinstances.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: flexlbinstance-viewer-role
+rules:
+- apiGroups:
+  - crd.flexlb.gitee.io
+  resources:
+  - flexlbinstances
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - crd.flexlb.gitee.io
+  resources:
+  - flexlbinstances/status
+  verbs:
+  - get

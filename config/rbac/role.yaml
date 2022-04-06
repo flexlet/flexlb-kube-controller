@@ -1,0 +1,98 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: flexlb-manager-role
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - endpoints
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - node
+  verbs:
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - service
+  verbs:
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - service/status
+  verbs:
+  - update
+- apiGroups:
+  - crd.flexlb.gitee.io
+  resources:
+  - flexlbclusters
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - crd.flexlb.gitee.io
+  resources:
+  - flexlbclusters/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - crd.flexlb.gitee.io
+  resources:
+  - flexlbinstances
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - crd.flexlb.gitee.io
+  resources:
+  - flexlbinstances/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - crd.flexlb.gitee.io
+  resources:
+  - flexlbinstances/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - discovery.k8s.io
+  resources:
+  - endpointslices
+  verbs:
+  - get
+  - list
+  - watch

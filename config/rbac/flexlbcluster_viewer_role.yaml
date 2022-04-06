@@ -1,0 +1,20 @@
+# permissions for end users to view flexlbclusters.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: flexlbcluster-viewer-role
+rules:
+- apiGroups:
+  - crd.flexlb.gitee.io
+  resources:
+  - flexlbclusters
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - crd.flexlb.gitee.io
+  resources:
+  - flexlbclusters/status
+  verbs:
+  - get

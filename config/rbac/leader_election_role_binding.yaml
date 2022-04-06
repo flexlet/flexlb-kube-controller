@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: flexlb-leader-election-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: flexlb-leader-election-role
+subjects:
+- kind: ServiceAccount
+  name: flexlb-kube-controller
+  namespace: kube-system

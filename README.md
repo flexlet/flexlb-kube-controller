@@ -1,37 +1,51 @@
-# flexlb-kube-controller
+# FlexLB kubernetes controller
 
-#### 介绍
-FlexLB kubernetes controller
+FlexLB kubernetes controller to add load balancer endpoint for service
 
-#### 软件架构
-软件架构说明
+## Build
 
+### Clone code
 
-#### 安装教程
+```sh
+git clone https://gitee.com/flexlb/flexlb-kube-controller.git
+```
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+### Build binary
 
-#### 使用说明
+#### For Linux
+```sh
+# build binary
+make
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+# build docker
+docker build -t flexlb-kube-controller:latest .
 
-#### 参与贡献
+# push docker
+docker push flexlb-kube-controller:latest
+```
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+### Run
 
+#### Install CRDs
 
-#### 特技
+```sh
+# copy target kubernetes config to ~/.kube/config
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+# install CRDs
+kubectl apply -f config/crd/bases
+```
+
+#### Deploy
+
+```sh
+# install rbac
+kubectl apply -f config/rbac
+
+# edit config/controller/flexlb-client-certs.yaml, change to target flexlb-api client certificate
+base64 -w 0 ../certs/ca.crt
+base64 -w 0 ../certs/client.crt
+base64 -w 0 ../certs/client.key
+
+# install controller
+kubectl apply -f config/controller
+```

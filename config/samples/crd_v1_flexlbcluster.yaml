@@ -1,0 +1,13 @@
+apiVersion: crd.flexlb.gitee.io/v1
+kind: FlexLBCluster
+metadata:
+  name: default
+spec:
+  endpoint: 8.46.188.190:8443
+  ippools:
+    - name: default
+      interface: enp4s3
+      net_prefix: 24
+      start: 192.168.2.50
+      end: 192.168.2.100
+      backend_network: 192.168.1.0/24

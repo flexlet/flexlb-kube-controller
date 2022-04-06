@@ -1,0 +1,25 @@
+domain: flexlb.gitee.io
+layout:
+- go.kubebuilder.io/v3
+projectName: flexlb-kube-controller
+repo: gitee.com/flexlb/flexlb-kube-controller
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: flexlb.gitee.io
+  group: crd
+  kind: FlexLBCluster
+  path: gitee.com/flexlb/flexlb-kube-controller/api/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: flexlb.gitee.io
+  group: crd
+  kind: FlexLBInstance
+  path: gitee.com/flexlb/flexlb-kube-controller/api/v1
+  version: v1
+version: "3"
