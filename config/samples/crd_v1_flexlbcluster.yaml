@@ -2,8 +2,9 @@ apiVersion: crd.flexlb.gitee.io/v1
 kind: FlexLBCluster
 metadata:
   name: default
+  namespace: kube-system
 spec:
-  endpoint: 8.46.188.190:8443
+  endpoint: <flexlb-api-endpoint>:8443
   ippools:
     - name: default
       interface: enp4s3

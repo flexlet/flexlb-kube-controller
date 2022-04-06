@@ -4,7 +4,7 @@ make manifests
 make install
 
 #NODEIP=`grep "${HOSTNAME}" /etc/hosts | cut -d' ' -f1`
-NODEIP=50.65.75.178
+NODEIP=<kube-controller-ip>
 export METRICS_BIND_ADDRESS=${NODEIP}:8000
 export HEALTH_PROBE_BIND_ADDRESS=${NODEIP}:8001
 export FLEXLB_TLS_CA_CERT=../certs/ca.crt
