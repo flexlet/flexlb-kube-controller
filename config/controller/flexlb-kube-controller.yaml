@@ -12,6 +12,8 @@ spec:
   replicas: 1
   template:
     metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: flexlb-kube-controller
       labels:
         app: flexlb-kube-controller
     spec:
@@ -20,19 +22,36 @@ spec:
       securityContext:
         runAsNonRoot: true
       containers:
+      - args:
+        - --secure-listen-address=0.0.0.0:8443
+        - --upstream=http://127.0.0.1:8080/
+        - --logtostderr=true
+        - --v=0
+        image: gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0
+        name: kube-rbac-proxy
+        ports:
+        - containerPort: 8443
+          name: https
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 500m
+            memory: 128Mi
+          requests:
+            cpu: 5m
+            memory: 64Mi
       - name: flexlb-kube-controller
         image: flexlb-kube-controller:0.4.0
-        env:
-        - name: FLEXLB_TLS_CA_CERT
-          value: "/certs/ca.crt"
-        - name: FLEXLB_TLS_CLIENT_CERT
-          value: "/certs/client.crt"
-        - name: FLEXLB_TLS_CLIENT_KEY
-          value: "/certs/client.key"
-        - name: FLEXLB_REFRESH_INTERVAL
-          value: "30"
-        - name: FLEXLB_NAMESPACE
-          value: "kube-system"
+        args:
+        - --health-probe-bind-address=:8081
+        - --metrics-bind-address=127.0.0.1:8080
+        - --leader-elect
+        - --tls-ca-cert=/certs/ca.crt
+        - --tls-client-cert=/certs/client.crt
+        - --tls-client-key=/certs/client.key
+        - --tls-insecure
+        - --refresh-interval=30
+        - --namespace=kube-system
         securityContext:
           allowPrivilegeEscalation: false
         livenessProbe:

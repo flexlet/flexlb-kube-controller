@@ -25,7 +25,9 @@ type NodeReconciler struct {
 	ChangeHandler func(client.Client, context.Context, *v1.Node) error
 }
 
-//+kubebuilder:rbac:groups="",resources=node,verbs=get;list;watch;update;patch
+//+kubebuilder:rbac:groups="",resources=nodes,verbs=get;list;watch;update;patch
+//+kubebuilder:rbac:groups="",resources=pods,verbs=get;list;watch;create;delete
+//+kubebuilder:rbac:groups="",resources=pods/log,verbs=get;list;watch
 
 func (r *NodeReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	_ = log.FromContext(ctx)

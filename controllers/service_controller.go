@@ -32,8 +32,8 @@ type ServiceReconciler struct {
 	DeleteHandler func(client.Client, context.Context, *v1.Service) error
 }
 
-//+kubebuilder:rbac:groups="",resources=service,verbs=get;list;watch;update;patch;
-//+kubebuilder:rbac:groups="",resources=service/status,verbs=update;
+//+kubebuilder:rbac:groups="",resources=services,verbs=get;list;watch;update;patch;
+//+kubebuilder:rbac:groups="",resources=services/status,verbs=update;
 //+kubebuilder:rbac:groups="",resources=endpoints,verbs=get;list;watch;
 //+kubebuilder:rbac:groups=discovery.k8s.io,resources=endpointslices,verbs=get;list;watch;
 //+kubebuilder:rbac:groups="",resources=events,verbs=create;patch;

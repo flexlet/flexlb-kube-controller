@@ -16,6 +16,24 @@ rules:
 - apiGroups:
   - ""
   resources:
+  - pods
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods/log
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
   - events
   verbs:
   - create
@@ -23,7 +41,7 @@ rules:
 - apiGroups:
   - ""
   resources:
-  - node
+  - nodes
   verbs:
   - get
   - list
@@ -33,7 +51,7 @@ rules:
 - apiGroups:
   - ""
   resources:
-  - service
+  - services
   verbs:
   - get
   - list
@@ -43,7 +61,7 @@ rules:
 - apiGroups:
   - ""
   resources:
-  - service/status
+  - services/status
   verbs:
   - update
 - apiGroups:
