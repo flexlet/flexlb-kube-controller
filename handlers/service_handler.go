@@ -1,3 +1,13 @@
+// Copyright (c) 2022 Yaohui Wang (yaohuiwang@outlook.com)
+// FlexLB is licensed under Mulan PubL v2.
+// You can use this software according to the terms and conditions of the Mulan PubL v2.
+// You may obtain a copy of Mulan PubL v2 at:
+//         http://license.coscl.org.cn/MulanPubL-2.0
+// THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+// EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+// MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+// See the Mulan PubL v2 for more details.
+
 package handlers
 
 import (
@@ -14,6 +24,7 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
+	utl "github.com/00ahui/utils"
 )
 
 // allocate flexlbinstance for load balancer type of service
@@ -248,12 +259,12 @@ func createIntance(k8s client.Client, ctx context.Context, flexlbNamespace strin
 		return nil, err
 	}
 
-	frontendIpaddress, err := utils.AllocIPFromRange(ippool.Start, ippool.End, allocated)
+	frontendIpaddress, err := utl.AllocIPFromRange(ippool.Start, ippool.End, allocated)
 	if err != nil {
 		return nil, err
 	}
 
-	instName := fmt.Sprintf("%s-%s", serviceName, utils.RandomString(4))
+	instName := fmt.Sprintf("%s-%s", serviceName, utl.RandomString(4))
 	inst := &crdv1.FlexLBInstance{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:        instName,
@@ -309,7 +320,7 @@ func updateIntance(k8s client.Client, ctx context.Context, inst *crdv1.FlexLBIns
 			return nil, err
 		}
 
-		frontendIpaddress, err := utils.AllocIPFromRange(ippool.Start, ippool.End, allocated)
+		frontendIpaddress, err := utl.AllocIPFromRange(ippool.Start, ippool.End, allocated)
 		if err != nil {
 			return nil, err
 		}

@@ -18,10 +18,10 @@ git clone https://gitee.com/flexlb/flexlb-kube-controller.git
 make
 
 # build docker (for production purpose)
-docker build -t flexlb-kube-controller:0.4.0 .
+docker build -t flexlb-kube-controller:0.4.1 .
 
 # push docker
-docker push flexlb-kube-controller:0.4.0
+docker push flexlb-kube-controller:0.4.1
 ```
 
 ### Run
