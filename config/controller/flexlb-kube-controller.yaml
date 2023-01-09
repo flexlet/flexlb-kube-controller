@@ -22,26 +22,8 @@ spec:
       securityContext:
         runAsNonRoot: true
       containers:
-      - args:
-        - --secure-listen-address=0.0.0.0:8443
-        - --upstream=http://127.0.0.1:8080/
-        - --logtostderr=true
-        - --v=0
-        image: gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0
-        name: kube-rbac-proxy
-        ports:
-        - containerPort: 8443
-          name: https
-          protocol: TCP
-        resources:
-          limits:
-            cpu: 500m
-            memory: 128Mi
-          requests:
-            cpu: 5m
-            memory: 64Mi
       - name: flexlb-kube-controller
-        image: flexlb-kube-controller:0.4.1
+        image: ghcr.io/flexlet/flexlb-kube-controller:0.4.2
         args:
         - --health-probe-bind-address=:8081
         - --metrics-bind-address=127.0.0.1:8080
@@ -52,6 +34,7 @@ spec:
         - --tls-insecure
         - --refresh-interval=30
         - --namespace=kube-system
+        - --probe-pod-image=busybox
         securityContext:
           allowPrivilegeEscalation: false
         livenessProbe:

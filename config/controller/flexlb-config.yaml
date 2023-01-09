@@ -15,4 +15,4 @@ data:
       port: 9443
     leaderElection:
       leaderElect: true
-      resourceName: 82b77363.flexlb.gitee.io
+      resourceName: 82b77363.flexlb.flexlet.io

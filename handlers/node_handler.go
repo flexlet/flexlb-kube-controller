@@ -1,13 +1,3 @@
-// Copyright (c) 2022 Yaohui Wang (yaohuiwang@outlook.com)
-// FlexLB is licensed under Mulan PubL v2.
-// You can use this software according to the terms and conditions of the Mulan PubL v2.
-// You may obtain a copy of Mulan PubL v2 at:
-//         http://license.coscl.org.cn/MulanPubL-2.0
-// THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
-// EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
-// MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
-// See the Mulan PubL v2 for more details.
-
 package handlers
 
 import (
@@ -17,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"gitee.com/flexlb/flexlb-kube-controller/utils"
+	"github.com/flexlet/flexlb-kube-controller/utils"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
@@ -26,7 +16,7 @@ import (
 
 // add node network annotation
 func (h *Handler) NodeChanged(k8s client.Client, ctx context.Context, node *v1.Node) error {
-	nodeNetwork, err := getNodeNetwork(k8s, ctx, node.Name, h.namespace)
+	nodeNetwork, err := getNodeNetwork(k8s, ctx, node.Name, h.namespace, h.probePodImage)
 	if err != nil {
 		return h.errorf(node, ErrorProbeTrafficNodeIp, err, "probe node network failed")
 	}
@@ -40,7 +30,6 @@ func (h *Handler) NodeChanged(k8s client.Client, ctx context.Context, node *v1.N
 // create a pod on target node to get host network
 const (
 	probePodNamePrefix = "flexlb-node-probe-"
-	probePodImage      = "busybox"
 	probePodCommand    = "ip route | awk \"/dev.*src/{print \\$1,\\$3,\\$(NF-2)}\""
 	probePodTimeout    = 10
 )
@@ -54,7 +43,7 @@ func delPodIfExist(k8s client.Client, ctx context.Context, podKey types.Namespac
 }
 
 // get node network (json string of [{'network':<cidr>,'device':<dev>,'ip_address':<ip>}])
-func getNodeNetwork(k8s client.Client, ctx context.Context, nodeName string, namespace string) (*string, error) {
+func getNodeNetwork(k8s client.Client, ctx context.Context, nodeName string, namespace string, probePodImage string) (*string, error) {
 	// create a pod on target node (use host network)
 	automountServiceAccountToken := false
 	probePod := &v1.Pod{

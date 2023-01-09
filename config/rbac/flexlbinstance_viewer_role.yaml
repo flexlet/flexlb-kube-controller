@@ -5,7 +5,7 @@ metadata:
   name: flexlbinstance-viewer-role
 rules:
 - apiGroups:
-  - crd.flexlb.gitee.io
+  - crd.flexlb.flexlet.io
   resources:
   - flexlbinstances
   verbs:
@@ -13,7 +13,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - crd.flexlb.gitee.io
+  - crd.flexlb.flexlet.io
   resources:
   - flexlbinstances/status
   verbs:

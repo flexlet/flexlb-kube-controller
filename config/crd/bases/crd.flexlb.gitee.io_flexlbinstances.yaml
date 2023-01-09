@@ -5,9 +5,9 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
   creationTimestamp: null
-  name: flexlbinstances.crd.flexlb.gitee.io
+  name: flexlbinstances.crd.flexlb.flexlet.io
 spec:
-  group: crd.flexlb.gitee.io
+  group: crd.flexlb.flexlet.io
   names:
     kind: FlexLBInstance
     listKind: FlexLBInstanceList

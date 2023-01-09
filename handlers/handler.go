@@ -1,13 +1,3 @@
-// Copyright (c) 2022 Yaohui Wang (yaohuiwang@outlook.com)
-// FlexLB is licensed under Mulan PubL v2.
-// You can use this software according to the terms and conditions of the Mulan PubL v2.
-// You may obtain a copy of Mulan PubL v2 at:
-//         http://license.coscl.org.cn/MulanPubL-2.0
-// THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
-// EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
-// MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
-// See the Mulan PubL v2 for more details.
-
 package handlers
 
 import (
@@ -28,17 +18,19 @@ type Handler struct {
 	tlsClientKey  string
 	tlsInsecure   bool
 	namespace     string
+	probePodImage string
 	recorder      record.EventRecorder
 	sync.Mutex
 }
 
-func NewHandler(tlsCaCert string, tlsClientCert string, tlsClientKey string, tlsInsecure bool, namespace string, recorder record.EventRecorder) *Handler {
+func NewHandler(tlsCaCert string, tlsClientCert string, tlsClientKey string, tlsInsecure bool, namespace string, probePodImage string, recorder record.EventRecorder) *Handler {
 	return &Handler{
 		tlsCaCert:     tlsCaCert,
 		tlsClientCert: tlsClientCert,
 		tlsClientKey:  tlsClientKey,
 		tlsInsecure:   tlsInsecure,
 		namespace:     namespace,
+		probePodImage: probePodImage,
 		recorder:      recorder,
 	}
 }
@@ -60,7 +52,7 @@ const (
 
 // instance annotation keys
 const (
-	ServiceKey = "flexlb.gitee.io/service"
+	ServiceKey = "flexlb.flexlet.io/service"
 )
 
 // node errors
@@ -71,7 +63,7 @@ const (
 
 // node annotation key
 const (
-	NodeNetworkKey = "flexlb.gitee.io/nodeNetwork"
+	NodeNetworkKey = "flexlb.flexlet.io/nodeNetwork"
 )
 
 // node network annotation struct
@@ -83,9 +75,9 @@ type NodeNetwork struct {
 
 // service annotation keys
 const (
-	ClusterKey  = "flexlb.gitee.io/cluster"
-	IPPoolKey   = "flexlb.gitee.io/ippool"
-	InstanceKey = "flexlb.gitee.io/instance"
+	ClusterKey  = "flexlb.flexlet.io/cluster"
+	IPPoolKey   = "flexlb.flexlet.io/ippool"
+	InstanceKey = "flexlb.flexlet.io/instance"
 )
 
 const (

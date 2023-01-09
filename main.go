@@ -1,13 +1,3 @@
-// Copyright (c) 2022 Yaohui Wang (yaohuiwang@outlook.com)
-// FlexLB is licensed under Mulan PubL v2.
-// You can use this software according to the terms and conditions of the Mulan PubL v2.
-// You may obtain a copy of Mulan PubL v2 at:
-//         http://license.coscl.org.cn/MulanPubL-2.0
-// THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
-// EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
-// MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
-// See the Mulan PubL v2 for more details.
-
 package main
 
 import (
@@ -28,9 +18,9 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	crdv1 "gitee.com/flexlb/flexlb-kube-controller/api/v1"
-	"gitee.com/flexlb/flexlb-kube-controller/controllers"
-	"gitee.com/flexlb/flexlb-kube-controller/handlers"
+	crdv1 "github.com/flexlet/flexlb-kube-controller/api/v1"
+	"github.com/flexlet/flexlb-kube-controller/controllers"
+	"github.com/flexlet/flexlb-kube-controller/handlers"
 	//+kubebuilder:scaffold:imports
 )
 
@@ -66,6 +56,7 @@ func main() {
 
 		refreshInterval = flag.String("refresh-interval", os.Getenv("FLEXLB_REFRESH_INTERVAL"), "Instance refresh interval in seconds")
 		namespace       = flag.String("namespace", os.Getenv("FLEXLB_NAMESPACE"), "Namespace for flexlb clusters and temporary pods")
+		probePodImage   = flag.String("probe-pod-image", os.Getenv("FLEXLB_PROBE_POD_IMAGE"), "Node probe pod image")
 	)
 
 	// zap command line options:
@@ -89,7 +80,7 @@ func main() {
 		Port:                   9443,
 		HealthProbeBindAddress: *probeAddr,
 		LeaderElection:         *enableLeaderElection,
-		LeaderElectionID:       "82b77363.flexlb.gitee.io",
+		LeaderElectionID:       "82b77363.flexlb.flexlet.io",
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start manager")
@@ -97,7 +88,7 @@ func main() {
 	}
 
 	// setup handler
-	handler := handlers.NewHandler(*tlsCaCert, *tlsClientCert, *tlsClientKey, *tlsInsecure, *namespace, mgr.GetEventRecorderFor("flexlb-handler"))
+	handler := handlers.NewHandler(*tlsCaCert, *tlsClientCert, *tlsClientKey, *tlsInsecure, *namespace, *probePodImage, mgr.GetEventRecorderFor("flexlb-handler"))
 
 	refreshSeconds, err := strconv.Atoi(*refreshInterval)
 	if err != nil {

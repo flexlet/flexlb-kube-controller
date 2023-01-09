@@ -1,0 +1,5 @@
+# software version
+VERSION=0.4.2
+
+# cpu arch
+ARCH="amd64"

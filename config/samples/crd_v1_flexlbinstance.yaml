@@ -1,4 +1,4 @@
-apiVersion: crd.flexlb.gitee.io/v1
+apiVersion: crd.flexlb.flexlet.io/v1
 kind: FlexLBInstance
 metadata:
   name: inst100

@@ -65,7 +65,7 @@ rules:
   verbs:
   - update
 - apiGroups:
-  - crd.flexlb.gitee.io
+  - crd.flexlb.flexlet.io
   resources:
   - flexlbclusters
   verbs:
@@ -73,7 +73,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - crd.flexlb.gitee.io
+  - crd.flexlb.flexlet.io
   resources:
   - flexlbclusters/status
   verbs:
@@ -81,7 +81,7 @@ rules:
   - patch
   - update
 - apiGroups:
-  - crd.flexlb.gitee.io
+  - crd.flexlb.flexlet.io
   resources:
   - flexlbinstances
   verbs:
@@ -93,13 +93,13 @@ rules:
   - update
   - watch
 - apiGroups:
-  - crd.flexlb.gitee.io
+  - crd.flexlb.flexlet.io
   resources:
   - flexlbinstances/finalizers
   verbs:
   - update
 - apiGroups:
-  - crd.flexlb.gitee.io
+  - crd.flexlb.flexlet.io
   resources:
   - flexlbinstances/status
   verbs:

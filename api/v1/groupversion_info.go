@@ -1,16 +1,6 @@
-// Copyright (c) 2022 Yaohui Wang (yaohuiwang@outlook.com)
-// FlexLB is licensed under Mulan PubL v2.
-// You can use this software according to the terms and conditions of the Mulan PubL v2.
-// You may obtain a copy of Mulan PubL v2 at:
-//         http://license.coscl.org.cn/MulanPubL-2.0
-// THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
-// EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
-// MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
-// See the Mulan PubL v2 for more details.
-
 // Package v1 contains API Schema definitions for the crd v1 API group
 //+kubebuilder:object:generate=true
-//+groupName=crd.flexlb.gitee.io
+//+groupName=crd.flexlb.flexlet.io
 package v1
 
 import (
@@ -20,7 +10,7 @@ import (
 
 var (
 	// GroupVersion is group version used to register these objects
-	GroupVersion = schema.GroupVersion{Group: "crd.flexlb.gitee.io", Version: "v1"}
+	GroupVersion = schema.GroupVersion{Group: "crd.flexlb.flexlet.io", Version: "v1"}
 
 	// SchemeBuilder is used to add go types to the GroupVersionKind scheme
 	SchemeBuilder = &scheme.Builder{GroupVersion: GroupVersion}

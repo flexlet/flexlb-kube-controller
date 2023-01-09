@@ -1,13 +1,3 @@
-// Copyright (c) 2022 Yaohui Wang (yaohuiwang@outlook.com)
-// FlexLB is licensed under Mulan PubL v2.
-// You can use this software according to the terms and conditions of the Mulan PubL v2.
-// You may obtain a copy of Mulan PubL v2 at:
-//         http://license.coscl.org.cn/MulanPubL-2.0
-// THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
-// EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
-// MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
-// See the Mulan PubL v2 for more details.
-
 package controllers
 
 import (
@@ -22,7 +12,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/predicate"
 
-	crdv1 "gitee.com/flexlb/flexlb-kube-controller/api/v1"
+	crdv1 "github.com/flexlet/flexlb-kube-controller/api/v1"
 )
 
 // FlexLBClusterReconciler reconciles a FlexLBCluster object
@@ -33,8 +23,8 @@ type FlexLBClusterReconciler struct {
 	ChangeHandler func(client.Client, context.Context, *crdv1.FlexLBCluster) error
 }
 
-//+kubebuilder:rbac:groups=crd.flexlb.gitee.io,resources=flexlbclusters,verbs=get;list;watch
-//+kubebuilder:rbac:groups=crd.flexlb.gitee.io,resources=flexlbclusters/status,verbs=get;update;patch
+//+kubebuilder:rbac:groups=crd.flexlb.flexlet.io,resources=flexlbclusters,verbs=get;list;watch
+//+kubebuilder:rbac:groups=crd.flexlb.flexlet.io,resources=flexlbclusters/status,verbs=get;update;patch
 //+kubebuilder:rbac:groups="",resources=events,verbs=create;patch;
 
 func (r *FlexLBClusterReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {

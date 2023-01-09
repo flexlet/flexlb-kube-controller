@@ -7,32 +7,34 @@ FlexLB kubernetes controller to add load balancer endpoint for service
 ### Clone code
 
 ```sh
-git clone https://gitee.com/flexlb/flexlb-kube-controller.git
+git clone https://github.com/flexlet/flexlb-kube-controller.git
 ```
 
 ### Build binary
 
-#### For Linux
 ```sh
-# build binary (for test purpose)
-make
-
-# build docker (for production purpose)
-docker build -t flexlb-kube-controller:0.4.1 .
-
-# push docker
-docker push flexlb-kube-controller:0.4.1
+# edit build/profile to change settings
+# build container image
+sh build/build.sh
 ```
 
 ### Run
 
-#### Install CRDs
+#### Install
 
 ```sh
 # copy target kubernetes config to ~/.kube/config
 
-# install CRDs
-kubectl apply -f config/crd/bases
+# extract package
+mkdir flexlb-kube-controller
+tar -zxf flexlb-kube-controller-0.4.2.tar.gz -C flexlb-kube-controller
+
+# copy flexlb ca and client certs to the directory
+cp ca.crt client.key client.crt flexlb-kube-controller/certs
+
+# install
+cd flexlb-kube-controller
+sh install.sh
 ```
 
 #### Run on the fly
@@ -51,21 +53,6 @@ export FLEXLB_TRAFFIC_NETWORK=192.168.1.0/24
 
 # run on the fly
 make run
-```
-
-#### Deploy
-
-```sh
-# install rbac
-kubectl apply -f config/rbac
-
-# edit config/controller/flexlb-client-certs.yaml, change to target flexlb-api client certificate
-base64 -w 0 ../certs/ca.crt
-base64 -w 0 ../certs/client.crt
-base64 -w 0 ../certs/client.key
-
-# install controller
-kubectl apply -f config/controller
 ```
 
 #### Test

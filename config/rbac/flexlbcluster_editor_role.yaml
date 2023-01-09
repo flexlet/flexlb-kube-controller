@@ -5,7 +5,7 @@ metadata:
   name: flexlbcluster-editor-role
 rules:
 - apiGroups:
-  - crd.flexlb.gitee.io
+  - crd.flexlb.flexlet.io
   resources:
   - flexlbclusters
   verbs:
@@ -17,7 +17,7 @@ rules:
   - update
   - watch
 - apiGroups:
-  - crd.flexlb.gitee.io
+  - crd.flexlb.flexlet.io
   resources:
   - flexlbclusters/status
   verbs:
